@@ -1,4 +1,5 @@
 ﻿using apbd_2026_cw11.DTOs;
+using apbd_2026_cw11.Exceptions;
 using apbd_2026_cw11.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,7 +30,7 @@ public class PatientsController : ControllerBase
             await _dbService.AddBedAssignmentAsync(pesel, addBedAssignmentDto);
             return Created();
         }
-        catch (Exception e)
+        catch (NotFoundException e)
         {
             return NotFound(e.Message);
         }
