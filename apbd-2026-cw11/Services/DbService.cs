@@ -104,9 +104,9 @@ public class DbService : IDbService
             var bed = await _context.Beds
                 .Where(b => b.Room.Ward.Name == addBedAssignmentDto.Ward
                             && b.BedType.Name == addBedAssignmentDto.BedType)
-                .Where(b => !b.BedAssignments.Any(ba =>
-                    ba.From < addBedAssignmentDto.To
-                    && ba.To > addBedAssignmentDto.From))
+                .Where(b => !b.BedAssignments.Any(ba => 
+                    (addBedAssignmentDto.To == null || ba.From < addBedAssignmentDto.To)
+                    && (ba.To == null || ba.To > addBedAssignmentDto.From)))
                 .FirstOrDefaultAsync();
 
             if (bed == null)
